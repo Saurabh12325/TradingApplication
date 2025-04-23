@@ -1,11 +1,9 @@
 package com.Trading.Trading.Entity;
 
 
+import com.Trading.Trading.Domain.USER_ROLE;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Data
@@ -20,5 +18,7 @@ public class UserEntity {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
-    private USER_ROLE role;
+    @Embedded
+private TwoFactorAuth twoFactorAuth = new TwoFactorAuth();
+    private USER_ROLE role = USER_ROLE.ROLE_CUSTOMER; //default  role
 }
