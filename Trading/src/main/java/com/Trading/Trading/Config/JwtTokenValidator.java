@@ -36,7 +36,7 @@ public class JwtTokenValidator extends OncePerRequestFilter {
                String email = String.valueOf(claims.get("email"));
                String authorities = String.valueOf(claims.get("authorities"));
                 List<GrantedAuthority> authorityList = AuthorityUtils.commaSeparatedStringToAuthorityList(authorities);
-                Authentication authentication = new UsernamePasswordAuthenticationToken(email, authorityList);
+                Authentication authentication = new UsernamePasswordAuthenticationToken(email,null, authorityList);
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             } catch (Exception e) {
                 throw new RuntimeException("Invalid JWT token");

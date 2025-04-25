@@ -7,6 +7,9 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 @Data
 @Getter
@@ -76,4 +79,6 @@ public class UserEntity {
     public void setUsername(String username) {
         this.username = username;
     }
+
+
 }
