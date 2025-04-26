@@ -1,6 +1,8 @@
 package com.Trading.Trading.Service;
 
 import com.Trading.Trading.Config.JwtTokenProvider;
+import com.Trading.Trading.Domain.VerificationType;
+import com.Trading.Trading.Entity.TwoFactorAuth;
 import com.Trading.Trading.Entity.UserEntity;
 import com.Trading.Trading.Repository.UserRespository;
 import org.springframework.stereotype.Service;
@@ -50,13 +52,19 @@ public class UserServiceimpl implements UserService{
     }
 
     @Override
-    public UserEntity enableTwoFactorAuthentication(UserEntity user) {
-
-        return null;
+    public UserEntity enableTwoFactorAuthentication(VerificationType verificationType, String sendTo, UserEntity user) {
+        TwoFactorAuth twoFactorAuth = new TwoFactorAuth();
+        twoFactorAuth.setEnabled(true);
+        twoFactorAuth.setSendTo(verificationType);
+        user.setTwoFactorAuth(twoFactorAuth);
+        return userRespository.save(user);
     }
+
 
     @Override
     public UserEntity updatePassword(UserEntity user, String newPassword) {
-        return null;
+       user.setPassword(newPassword);
+       return userRespository.save(user);
+
     }
 }

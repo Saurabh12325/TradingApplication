@@ -106,7 +106,8 @@ public ResponseEntity<AuthResponse> register(@RequestBody UserEntity user) {
         return new UsernamePasswordAuthenticationToken(userDetails, password, userDetails.getAuthorities());
     }
 
-public ResponseEntity<AuthResponse> verifySigingOtp(@PathVariable String otp,@RequestParam String id) throws Exception {
+    @PostMapping("/Two-factor/otp/{otp}")
+public ResponseEntity<AuthResponse> verifySignInOtp(@PathVariable String otp,@RequestParam String id) throws Exception {
     TwoFactorOTP twoFactorOTP = twoFactorOtpService.findById(id);
     if(twoFactorOtpService.verifyTwoFactorOtp(twoFactorOTP,otp)){
        AuthResponse res = new AuthResponse();
