@@ -28,6 +28,10 @@ public class UserEntity {
     @Embedded
     private TwoFactorAuth twoFactorAuth = new TwoFactorAuth();
 
+    private USER_ROLE role = USER_ROLE.ROLE_CUSTOMER; //default  role
+
+
+
     public Long getId() {
         return id;
     }
@@ -51,9 +55,6 @@ public class UserEntity {
     public void setRole(USER_ROLE role) {
         this.role = role;
     }
-
-    private USER_ROLE role = USER_ROLE.ROLE_CUSTOMER; //default  role
-
 
 
     public String getEmail() {

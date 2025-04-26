@@ -11,7 +11,6 @@ import lombok.Data;
 @Data
 @Entity
 public class TwoFactorOTP {
-
     @Id
     private String id;
     private String otp;
