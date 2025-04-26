@@ -20,5 +20,19 @@ public class TwoFactorOTP {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String jwt;
 
+    public void setId(String id) {
+        this.id = id;
+    }
 
+    public void setOtp(String otp) {
+        this.otp = otp;
+    }
+
+    public void setUser(UserEntity user) {
+        this.user = user;
+    }
+
+    public void setJwt(String jwt) {
+        this.jwt = jwt;
+    }
 }
