@@ -18,10 +18,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Optional;
@@ -109,7 +106,18 @@ public ResponseEntity<AuthResponse> register(@RequestBody UserEntity user) {
         return new UsernamePasswordAuthenticationToken(userDetails, password, userDetails.getAuthorities());
     }
 
+public ResponseEntity<AuthResponse> verifySigingOtp(@PathVariable String otp,@RequestParam String id) throws Exception {
+    TwoFactorOTP twoFactorOTP = twoFactorOtpService.findById(id);
+    if(twoFactorOtpService.verifyTwoFactorOtp(twoFactorOTP,otp)){
+       AuthResponse res = new AuthResponse();
+       res.setMessage("Two factor authentication verify");
+       res.setTwoFactorAuthEnabled(true);
+       res.setJwt(twoFactorOTP.getJwt());
+       return new ResponseEntity<>(res, HttpStatus.OK);
+    }
+    throw new Exception("Invalid Otp");
 
+}
 
 }
 

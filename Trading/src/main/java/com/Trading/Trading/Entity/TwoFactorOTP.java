@@ -39,4 +39,16 @@ public class TwoFactorOTP {
     public String getOtp() {
         return otp;
     }
+
+    public String getId() {
+        return id;
+    }
+
+    public UserEntity getUser() {
+        return user;
+    }
+
+    public String getJwt() {
+        return jwt;
+    }
 }
