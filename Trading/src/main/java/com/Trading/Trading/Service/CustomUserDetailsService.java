@@ -1,4 +1,4 @@
-package com.Trading.Trading;
+package com.Trading.Trading.Service;
 
 import com.Trading.Trading.Entity.UserEntity;
 import com.Trading.Trading.Repository.UserRespository;
@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService{
