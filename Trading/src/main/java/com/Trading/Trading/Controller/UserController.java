@@ -27,6 +27,7 @@ public class UserController {
     @PostMapping("/api/users/verificaton/{verificationType}/send-otp")
     public ResponseEntity<UserEntity> sendVerificationOtp(@RequestHeader("Authorization") String jwt, @PathVariable VerificationType verificationType) throws Exception {
         UserEntity user = userService.findUserProfileByJwt(jwt);
+
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
     @PatchMapping("/api/users/enable-two-factor/verify-otp/{otp}")
