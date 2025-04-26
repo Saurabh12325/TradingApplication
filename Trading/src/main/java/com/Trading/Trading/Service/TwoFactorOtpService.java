@@ -9,9 +9,9 @@ public interface TwoFactorOtpService {
 
     TwoFactorOTP findByUserEntity(Long userId);
 
-    TwoFactorOTP findById(TwoFactorOTP twoFactorOTP);
+    TwoFactorOTP findById(String id);
 
-    boolean verifyTwoFactorOtp(TwoFactorOTP twoFactorOTP);
+    boolean verifyTwoFactorOtp(TwoFactorOTP twoFactorOTP ,String otp);
 
     void deleteTwoFactorOtp(TwoFactorOTP twoFactorOTP);
 

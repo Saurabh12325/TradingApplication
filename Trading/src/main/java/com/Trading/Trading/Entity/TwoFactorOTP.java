@@ -35,4 +35,8 @@ public class TwoFactorOTP {
     public void setJwt(String jwt) {
         this.jwt = jwt;
     }
+
+    public String getOtp() {
+        return otp;
+    }
 }
