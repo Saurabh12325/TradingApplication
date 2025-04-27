@@ -1,9 +1,11 @@
 package com.Trading.Trading.Controller;
 
 import com.Trading.Trading.Domain.VerificationType;
+import com.Trading.Trading.Entity.ForgotPasswordToken;
 import com.Trading.Trading.Entity.UserEntity;
 import com.Trading.Trading.Entity.VerificationCode;
 import com.Trading.Trading.Service.EmailService;
+import com.Trading.Trading.Service.ForgotPasswordService;
 import com.Trading.Trading.Service.UserService;
 import com.Trading.Trading.Service.VerificationCodeService;
 import com.Trading.Trading.Utils.OtpUtils;
@@ -12,9 +14,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @RestController
 
 public class UserController {
+    @Autowired
+    private ForgotPasswordService forgotPasswordService;
     @Autowired
     private UserService userService;
     @Autowired
@@ -58,10 +64,19 @@ public class UserController {
         }
        throw  new Exception("wrong otp");
     }
+
+
 @PostMapping("/auth/users/reset-password/send-otp")
     public ResponseEntity<String> sendForgotPasswordOtp(@RequestHeader("Authorization") String jwt, @PathVariable VerificationType verificationType) throws Exception {
    UserEntity user = userService.findUserProfileByJwt(jwt);
    String otp = OtpUtils.generateOtp();
+    UUID uuid = UUID.randomUUID();
+    String id = uuid.toString();
+
+    ForgotPasswordToken token = forgotPasswordService.findByUser(user.getId());
+    if(token==null){
+       token = forgotPasswordService.createToken(user,id,)
+    }
 
         return new ResponseEntity<>("forgot Password Otp Sent Successful", HttpStatus.OK);
     }
