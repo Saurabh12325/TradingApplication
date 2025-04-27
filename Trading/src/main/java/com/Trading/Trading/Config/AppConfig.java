@@ -13,7 +13,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 public class AppConfig {
 
    @Bean
-    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+  public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.sessionManagement((management->management.sessionCreationPolicy(SessionCreationPolicy.STATELESS)))
         .authorizeHttpRequests(authorizeRequests -> authorizeRequests.requestMatchers("/api/**").authenticated()
                 .anyRequest().permitAll())
