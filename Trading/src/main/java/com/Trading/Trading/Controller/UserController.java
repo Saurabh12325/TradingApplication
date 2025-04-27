@@ -1,5 +1,7 @@
 package com.Trading.Trading.Controller;
 
+import com.Trading.Trading.DTO.AuthResponse;
+import com.Trading.Trading.DTO.ForgotPasswordTokenRequest;
 import com.Trading.Trading.Domain.VerificationType;
 import com.Trading.Trading.Entity.ForgotPasswordToken;
 import com.Trading.Trading.Entity.UserEntity;
@@ -67,19 +69,34 @@ public class UserController {
 
 
 @PostMapping("/auth/users/reset-password/send-otp")
-    public ResponseEntity<String> sendForgotPasswordOtp(@RequestHeader("Authorization") String jwt, @PathVariable VerificationType verificationType) throws Exception {
-   UserEntity user = userService.findUserProfileByJwt(jwt);
+    public ResponseEntity<AuthResponse> sendForgotPasswordOtp( @RequestBody ForgotPasswordTokenRequest req) throws Exception {
+   UserEntity user = userService.findUserByEmail(req.getSendTo());
    String otp = OtpUtils.generateOtp();
     UUID uuid = UUID.randomUUID();
     String id = uuid.toString();
 
     ForgotPasswordToken token = forgotPasswordService.findByUser(user.getId());
     if(token==null){
-       token = forgotPasswordService.createToken(user,id,)
+        token = forgotPasswordService.createToken(user,id,otp,req.getVerificationType(), req.getSendTo());
+    }
+    if(req.getVerificationType().equals(VerificationType.EMAIL)){
+        emailService.sendVerificationOtpEmail(user.getEmail(), token.getOtp());
+    }
+    AuthResponse authResponse = new AuthResponse();
+    authResponse.setSession(token.getId());
+    authResponse.setMessage("Password Reset Otp Sent Successfully");
+
+        return new ResponseEntity<>(authResponse, HttpStatus.OK);
     }
 
-        return new ResponseEntity<>("forgot Password Otp Sent Successful", HttpStatus.OK);
+
+    @PatchMapping("/auth/users/reset-password/verify-otp")
+    public ResponseEntity<UserEntity> VerifyResetPassword(@RequestHeader("Authorization") String jwt,@RequestParam String id) throws Exception {
+//        UserEntity user = userService.findUserProfileByJwt(jwt);
+        ForgotPasswordToken forgotPasswordToken = forgotPasswordService.findById(id)
+       boolean isVerified = forgotPasswordToken.getOtp().equals(req.getOtp());
     }
+
 }
 
 

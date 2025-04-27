@@ -1,18 +1,19 @@
 package com.Trading.Trading.DTO;
 
+import com.Trading.Trading.Domain.VerificationType;
 import lombok.Data;
 
 @Data
 public class ForgotPasswordTokenRequest {
-    private String otp;
+    private VerificationType verificationType;
     private String sendTo;
 
-    public String getOtp() {
-        return otp;
+    public VerificationType getVerificationType() {
+        return verificationType;
     }
 
-    public void setOtp(String otp) {
-        this.otp = otp;
+    public void setVerificationType(VerificationType verificationType) {
+        this.verificationType = verificationType;
     }
 
     public String getSendTo() {
