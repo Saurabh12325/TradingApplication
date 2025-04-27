@@ -6,6 +6,7 @@ import com.Trading.Trading.Entity.VerificationCode;
 import com.Trading.Trading.Service.EmailService;
 import com.Trading.Trading.Service.UserService;
 import com.Trading.Trading.Service.VerificationCodeService;
+import com.Trading.Trading.Utils.OtpUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -56,6 +57,13 @@ public class UserController {
             return new ResponseEntity<>(updatedUser, HttpStatus.OK);
         }
        throw  new Exception("wrong otp");
+    }
+@PostMapping("/auth/users/reset-password/send-otp")
+    public ResponseEntity<String> sendForgotPasswordOtp(@RequestHeader("Authorization") String jwt, @PathVariable VerificationType verificationType) throws Exception {
+   UserEntity user = userService.findUserProfileByJwt(jwt);
+   String otp = OtpUtils.generateOtp();
+
+        return new ResponseEntity<>("forgot Password Otp Sent Successful", HttpStatus.OK);
     }
 }
 
