@@ -1,7 +1,9 @@
 package com.Trading.Trading.Controller;
 
+import com.Trading.Trading.DTO.ApiResponse;
 import com.Trading.Trading.DTO.AuthResponse;
 import com.Trading.Trading.DTO.ForgotPasswordTokenRequest;
+import com.Trading.Trading.DTO.ResetPasswordRequest;
 import com.Trading.Trading.Domain.VerificationType;
 import com.Trading.Trading.Entity.ForgotPasswordToken;
 import com.Trading.Trading.Entity.UserEntity;
@@ -91,10 +93,17 @@ public class UserController {
 
 
     @PatchMapping("/auth/users/reset-password/verify-otp")
-    public ResponseEntity<UserEntity> VerifyResetPassword(@RequestHeader("Authorization") String jwt,@RequestParam String id) throws Exception {
+    public ResponseEntity<ApiResponse> VerifyResetPassword(@RequestHeader("Authorization") String jwt, @RequestBody ResetPasswordRequest req, @RequestParam String id) throws Exception {
 //        UserEntity user = userService.findUserProfileByJwt(jwt);
-        ForgotPasswordToken forgotPasswordToken = forgotPasswordService.findById(id)
+        ForgotPasswordToken forgotPasswordToken = forgotPasswordService.findById(id);
        boolean isVerified = forgotPasswordToken.getOtp().equals(req.getOtp());
+       if(isVerified){
+           userService.updatePassword(forgotPasswordToken.getUser(),req.getPassword());
+           ApiResponse res = new ApiResponse();
+           res.setMessage("password Update successfully");
+           return new ResponseEntity<>(res,HttpStatus.ACCEPTED);
+       }
+       throw  new Exception("wrong otp");
     }
 
 }
