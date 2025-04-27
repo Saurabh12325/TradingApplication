@@ -11,7 +11,7 @@ public class ForgotPasswordToken {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private String id;
     @OneToOne
     private UserEntity user;
     private String otp;
