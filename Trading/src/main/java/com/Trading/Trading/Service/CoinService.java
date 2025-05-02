@@ -5,7 +5,7 @@ import com.Trading.Trading.Entity.Coin;
 import java.util.List;
 
 public interface CoinService {
-    List<Coin> getCoinList(int page);
+    List<Coin> getCoinList(int page) throws Exception;
 
     String getMarkerChart(String coinId,int days);
     String getCoinDetail(String coinId);
