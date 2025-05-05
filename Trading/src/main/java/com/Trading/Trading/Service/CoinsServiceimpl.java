@@ -3,6 +3,7 @@ package com.Trading.Trading.Service;
 import com.Trading.Trading.Entity.Coin;
 import com.Trading.Trading.Repository.CoinRepository;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,13 +43,34 @@ public class CoinsServiceimpl implements  CoinService{
     }
 
     @Override
-    public String getMarkerChart(String coinId, int days) {
-        return "";
+    public String getMarkerChart(String coinId, int days) throws Exception {
+        String url = "https://api.coingecko.com/api/v3/coins/"+coinId+"market_chart?vs_currency=usd&days"+days;
+        RestTemplate restTemplate = new RestTemplate();
+        try{
+            HttpHeaders headers = new HttpHeaders();
+            HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
+            ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET,entity,String.class);
+         return  response.getBody();
+        }catch (HttpClientErrorException  | HttpServerErrorException e){
+            throw new Exception(e.getMessage());
+        }
     }
 
     @Override
-    public String getCoinDetail(String coinId) {
-        return "";
+    public String getCoinDetail(String coinId) throws Exception {
+        String url = "https://api.coingecko.com/api/v3/coins/"+coinId;
+        RestTemplate restTemplate = new RestTemplate();
+        try{
+            HttpHeaders headers = new HttpHeaders();
+            HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
+            ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET,entity,String.class);
+            JsonNode jsonNode = objectMapper.readTree(response.getBody());
+            Coin coin = new Coin();
+            coin.setId(jsonNode.get("id").asText());
+            return  response.getBody();
+        }catch (HttpClientErrorException  | HttpServerErrorException e){
+            throw new Exception(e.getMessage());
+        }
     }
 
     @Override

@@ -7,8 +7,8 @@ import java.util.List;
 public interface CoinService {
     List<Coin> getCoinList(int page) throws Exception;
 
-    String getMarkerChart(String coinId,int days);
-    String getCoinDetail(String coinId);
+    String getMarkerChart(String coinId,int days) throws Exception;
+    String getCoinDetail(String coinId) throws Exception;
     String findById(int coinId);
     String searchCoin(String keyword);
     String getTo50CoinsByMarketCapRank();
