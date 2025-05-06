@@ -53,12 +53,21 @@ public class WalletServiceImpl implements WalletService {
         if(senderWallet.getBalance().compareTo(BigDecimal.valueOf(amount))<0){
             throw new Exception("Insufficient Balance......");
         }
-        BigDecimal balance =
-        return null;
+        BigDecimal senderbalance = senderWallet.getBalance().subtract(BigDecimal.valueOf(amount));
+        senderWallet.setBalance(senderbalance);
+        walletRepository.save(senderWallet);
+
+        // receiver wallet update
+        BigDecimal receiverbalance = recieverWallet.getBalance().add(BigDecimal.valueOf(amount));
+        recieverWallet.setBalance(receiverbalance);
+        walletRepository.save(recieverWallet);
+        return senderWallet;
     }
 
     @Override
-    public Wallet payOrderPayment(Order order, SecurityProperties.User user) {
+    public Wallet payOrderPayment(Order order, UserEntity user) {
+        Wallet wallet = getUserWallet(user);
+        if(order.getO)
         return null;
     }
 }
