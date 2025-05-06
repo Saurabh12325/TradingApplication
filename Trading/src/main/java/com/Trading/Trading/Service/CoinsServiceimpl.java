@@ -18,6 +18,8 @@ import org.springframework.web.client.RestTemplate;
 
 
 import java.util.List;
+import java.util.Optional;
+
 @Service
 public class CoinsServiceimpl implements  CoinService{
 
@@ -88,8 +90,9 @@ public class CoinsServiceimpl implements  CoinService{
     }
 
     @Override
-    public String findById(int coinId) {
-        return "";
+    public Coin findById(String coinId) {
+       Optional<Coin> find = coinRepository.findById(coinId);
+        return null;
     }
 
     @Override
