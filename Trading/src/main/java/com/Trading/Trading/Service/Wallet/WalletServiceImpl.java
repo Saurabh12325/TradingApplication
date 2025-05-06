@@ -67,7 +67,7 @@ public class WalletServiceImpl implements WalletService {
     @Override
     public Wallet payOrderPayment(Order order, UserEntity user) {
         Wallet wallet = getUserWallet(user);
-        if(order.getO)
+        if(order.getOrderType())
         return null;
     }
 }

@@ -65,6 +65,5 @@ public class UserServiceimpl implements UserService{
     public UserEntity updatePassword(UserEntity user, String newPassword) {
        user.setPassword(newPassword);
        return userRespository.save(user);
-
     }
 }

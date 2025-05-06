@@ -1,5 +1,6 @@
 package com.Trading.Trading.Entity;
 
+import com.Trading.Trading.Domain.OrderType;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -13,4 +14,6 @@ public class Order {
 
     @ManyToOne
     private UserEntity user;
+    @Column(nullable = false)
+    private OrderType orderType;
 }
