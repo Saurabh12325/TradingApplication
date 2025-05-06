@@ -45,7 +45,7 @@ public class CoinsServiceimpl implements  CoinService{
     }
 
     @Override
-    public String getMarkerChart(String coinId, int days) throws Exception {
+    public String getMarketChart(String coinId, int days) throws Exception {
         String url = "https://api.coingecko.com/api/v3/coins/"+coinId+"/market_chart?vs_currency=usd&days"+ days;
         RestTemplate restTemplate = new RestTemplate();
         try{
