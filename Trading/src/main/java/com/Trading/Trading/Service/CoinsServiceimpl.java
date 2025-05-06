@@ -67,7 +67,20 @@ public class CoinsServiceimpl implements  CoinService{
             JsonNode jsonNode = objectMapper.readTree(response.getBody());
             Coin coin = new Coin();
             coin.setId(jsonNode.get("id").asText());
-            return  response.getBody();
+            coin.setName(jsonNode.get("name").asText());
+            coin.setSymbol(jsonNode.get("symbol").asText());
+            coin.setImage(jsonNode.get("image").get("large").asText());
+            JsonNode marketData = jsonNode.get("market_data" );
+            coin.setCurrentPrice(marketData.get("current_price").get("usd").asDouble());
+            coin.setMarketCap(marketData.get("market_cap").get("usd").asLong());
+            coin.setMarketCapRank(marketData.get("market_cap_rank").asInt());
+            coin.setTotalVolume(marketData.get("total_volume").get("usd").asLong());
+            coin.setHigh24h(marketData.get("high_24h").get("usd").asDouble());
+            coin.setLow24h(marketData.get("low_24h").get("usd").asDouble());
+            coin.setPriceChange24h(marketData.get("price_change24h").get("usd").asDouble());
+            coin.setPriceChangePercentage24h(marketData.get("price_change2_24h").get("usd").asDouble());
+            coin.setMarketCapChange24h(marketData.get("market").get("usd").asLong());
+            return response.getBody();
         }catch (HttpClientErrorException  | HttpServerErrorException e){
             throw new Exception(e.getMessage());
         }
