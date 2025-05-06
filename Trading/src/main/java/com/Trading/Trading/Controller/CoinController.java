@@ -1,7 +1,7 @@
 package com.Trading.Trading.Controller;
 
 import com.Trading.Trading.Entity.Coin;
-import com.Trading.Trading.Service.CoinService;
+import com.Trading.Trading.Service.Coin.CoinService;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;

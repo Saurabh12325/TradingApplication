@@ -1,4 +1,4 @@
-package com.Trading.Trading.Service;
+package com.Trading.Trading.Service.Coin;
 
 import com.Trading.Trading.Entity.Coin;
 import com.Trading.Trading.Repository.CoinRepository;
@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class CoinsServiceimpl implements  CoinService{
+public class CoinsServiceimpl implements CoinService {
 
    @Autowired
     private CoinRepository coinRepository;//use for the communication of the external Api

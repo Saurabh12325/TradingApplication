@@ -1,4 +1,4 @@
-package com.Trading.Trading.Service;
+package com.Trading.Trading.Service.Coin;
 
 import com.Trading.Trading.Entity.Coin;
 
