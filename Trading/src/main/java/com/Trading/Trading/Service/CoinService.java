@@ -9,9 +9,9 @@ public interface CoinService {
 
     String getMarkerChart(String coinId,int days) throws Exception;
     String getCoinDetail(String coinId) throws Exception;
-    String findById(int coinId);
-    String searchCoin(String keyword);
-    String getTo50CoinsByMarketCapRank();
-    String GetTreadingCoins();
+    Coin findById(String coinId) throws Exception;
+    String searchCoin(String keyword) throws Exception;
+    String getTo50CoinsByMarketCapRank() throws Exception;
+    String GetTreadingCoins() throws Exception;
 
 }
