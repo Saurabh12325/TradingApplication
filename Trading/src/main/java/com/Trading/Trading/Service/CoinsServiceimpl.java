@@ -79,7 +79,8 @@ public class CoinsServiceimpl implements  CoinService{
             coin.setLow24h(marketData.get("low_24h").get("usd").asDouble());
             coin.setPriceChange24h(marketData.get("price_change24h").get("usd").asDouble());
             coin.setPriceChangePercentage24h(marketData.get("price_change2_24h").get("usd").asDouble());
-            coin.setMarketCapChange24h(marketData.get("market").get("usd").asLong());
+            coin.setMarketCapChange24h(marketData.get("market_cap_change_percentage_24h").get("usd").asLong());
+            coin.setTotalSupply(marketData.get("total_supply").get("usd").asLong());
             return response.getBody();
         }catch (HttpClientErrorException  | HttpServerErrorException e){
             throw new Exception(e.getMessage());
