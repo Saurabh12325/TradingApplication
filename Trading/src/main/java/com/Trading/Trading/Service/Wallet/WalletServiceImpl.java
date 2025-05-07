@@ -1,5 +1,6 @@
 package com.Trading.Trading.Service.Wallet;
 
+import com.Trading.Trading.Domain.OrderType;
 import com.Trading.Trading.Entity.Order;
 import com.Trading.Trading.Entity.UserEntity;
 import com.Trading.Trading.Entity.Wallet;
@@ -65,9 +66,20 @@ public class WalletServiceImpl implements WalletService {
     }
 
     @Override
-    public Wallet payOrderPayment(Order order, UserEntity user) {
+    public Wallet payOrderPayment(Order order, UserEntity user) throws Exception {
         Wallet wallet = getUserWallet(user);
-        if(order.getOrderType())
-        return null;
+        if(order.getOrderType().equals(OrderType.BUY)){
+            BigDecimal newBalance = wallet.getBalance().subtract(order.getPrice());
+            if(newBalance.compareTo(order.getPrice())<0){
+                throw new Exception("Insufficient funds for this transaction");
+            }
+            wallet.setBalance(newBalance);
+        }
+        else{
+            BigDecimal newBalance = wallet.getBalance().add(order.getPrice());
+            wallet.setBalance(newBalance);
+
+        }
+      return  walletRepository.save(wallet);
     }
 }
