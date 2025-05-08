@@ -26,7 +26,7 @@ public class JwtTokenValidator extends OncePerRequestFilter {
         String jwtToken = request.getHeader(JwtConstant.JWT_HEADER);
 
         if(jwtToken != null) {
-            jwtToken =   jwtToken.startsWith("bearer ") ? jwtToken.substring(7) : jwtToken;
+            jwtToken = jwtToken.startsWith("bearer ") ? jwtToken.substring(7) : jwtToken;
             try{
                SecretKey key = Keys.hmacShaKeyFor(JwtConstant.SECRET_KEY.getBytes());
                Claims claims = Jwts.parser().
