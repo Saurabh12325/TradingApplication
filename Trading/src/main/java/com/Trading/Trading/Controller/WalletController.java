@@ -1,4 +1,5 @@
 package com.Trading.Trading.Controller;
+import com.Trading.Trading.Entity.Order;
 import com.Trading.Trading.Entity.UserEntity;
 import com.Trading.Trading.Entity.Wallet;
 import com.Trading.Trading.Entity.WalletTransactionEntity;
@@ -33,4 +34,14 @@ public ResponseEntity<Wallet> walletToWalletTransfer(@RequestHeader("Authorizati
     Wallet wallet = walletService.walletToWalletTransfer(sender,receiverWallet,walletTransaction.getAmount());
     return new ResponseEntity<>(wallet, HttpStatus.ACCEPTED);
 }
+
+@PutMapping("/api/wallet/order/{orderId}/pay")
+    public ResponseEntity<Wallet> payOrderPayment(@RequestHeader("Authorization") String jwt, @PathVariable Long orderId) throws Exception {
+    UserEntity user = userService.findUserProfileByJwt(jwt);
+    Order order = orderService.getOrderById(orderId);
+    Wallet wallet = walletService.payOrderPayment(order,user);
+    return new ResponseEntity<>(wallet, HttpStatus.ACCEPTED);
+}
+
+
 }
