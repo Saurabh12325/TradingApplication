@@ -78,4 +78,108 @@ public class Coin {
     private String roi;
     @JsonProperty("last_updated")
     private Date lastUpdated;
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setSymbol(String symbol) {
+        this.symbol = symbol;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public void setCurrentPrice(double currentPrice) {
+        this.currentPrice = currentPrice;
+    }
+
+    public void setMarketCap(long marketCap) {
+        this.marketCap = marketCap;
+    }
+
+    public void setMarketCapRank(int marketCapRank) {
+        this.marketCapRank = marketCapRank;
+    }
+
+    public void setFullyDilutedValuation(long fullyDilutedValuation) {
+        this.fullyDilutedValuation = fullyDilutedValuation;
+    }
+
+    public void setTotalVolume(long totalVolume) {
+        this.totalVolume = totalVolume;
+    }
+
+    public void setHigh24h(double high24h) {
+        this.high24h = high24h;
+    }
+
+    public void setLow24h(double low24h) {
+        this.low24h = low24h;
+    }
+
+    public void setPriceChange24h(double priceChange24h) {
+        this.priceChange24h = priceChange24h;
+    }
+
+    public void setPriceChangePercentage24h(double priceChangePercentage24h) {
+        this.priceChangePercentage24h = priceChangePercentage24h;
+    }
+
+    public void setMarketCapChange24h(long marketCapChange24h) {
+        this.marketCapChange24h = marketCapChange24h;
+    }
+
+    public void setMarketCapChangePercentage24h(double marketCapChangePercentage24h) {
+        this.marketCapChangePercentage24h = marketCapChangePercentage24h;
+    }
+
+    public void setCirculatingSupply(long circulatingSupply) {
+        this.circulatingSupply = circulatingSupply;
+    }
+
+    public void setTotalSupply(long totalSupply) {
+        this.totalSupply = totalSupply;
+    }
+
+    public void setMaxSupply(long maxSupply) {
+        this.maxSupply = maxSupply;
+    }
+
+    public void setAth(double ath) {
+        this.ath = ath;
+    }
+
+    public void setAthChangePercentage(double athChangePercentage) {
+        this.athChangePercentage = athChangePercentage;
+    }
+
+    public void setAthDate(Date athDate) {
+        this.athDate = athDate;
+    }
+
+    public void setAtl(double atl) {
+        this.atl = atl;
+    }
+
+    public void setAtlChangePercentage(double atlChangePercentage) {
+        this.atlChangePercentage = atlChangePercentage;
+    }
+
+    public void setAtlDate(Date atlDate) {
+        this.atlDate = atlDate;
+    }
+
+    public void setRoi(String roi) {
+        this.roi = roi;
+    }
+
+    public void setLastUpdated(Date lastUpdated) {
+        this.lastUpdated = lastUpdated;
+    }
 }
