@@ -21,8 +21,10 @@ public class Order {
     @Column(nullable = false)
     private OrderType orderType;
 
+
+
     @Column(nullable = false)
-    private OrderStatus order;
+    private OrderStatus status;
 
     @Column(nullable = false)
     private BigDecimal price;
@@ -30,5 +32,7 @@ public class Order {
 
     @OneToOne(mappedBy = "order",cascade = CascadeType.ALL)
     private OrderItem orderItem;
+
+
 
 }
