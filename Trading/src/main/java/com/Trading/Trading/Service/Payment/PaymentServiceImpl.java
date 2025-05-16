@@ -9,6 +9,8 @@ import com.Trading.Trading.Repository.PaymentRepository;
 import com.razorpay.Payment;
 import com.razorpay.RazorpayClient;
 import com.razorpay.RazorpayException;
+import netscape.javascript.JSObject;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -41,27 +43,50 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public Boolean ProceedPaymentOrder(PaymentOrder paymentOrder, String paymentId) throws RazorpayException {
-        if(paymentOrder.getStatus().equals(PaymentOrderStatus.PENDING))
-            if(paymentOrder.getPaymentMethod().equals(PaymentMethod.RAZORPAY)) {
+        if (paymentOrder.getStatus().equals(PaymentOrderStatus.PENDING)) {
+            if (paymentOrder.getPaymentMethod().equals(PaymentMethod.RAZORPAY)) {
                 RazorpayClient razorpay = new RazorpayClient(apiKey, apiSecretKey);
                 Payment payment = razorpay.payments.fetch(paymentId);
                 Integer amount = payment.get("amount");
                 String status = payment.get("status");
-               if(status.equals("CAPTURED")) {
-                   paymentOrder.setStatus(PaymentOrderStatus.SUCCESS);
-                   return true;
-               }
-               paymentOrder.setStatus(PaymentOrderStatus.FAILED);
-               paymentRepository.save(paymentOrder);
-               return false;
-
-
+                if (status.equals("CAPTURED")) {
+                    paymentOrder.setStatus(PaymentOrderStatus.SUCCESS);
+                    return true;
+                }
+                paymentOrder.setStatus(PaymentOrderStatus.FAILED);
+                paymentRepository.save(paymentOrder);
+                return false;
             }
-        return null;
+            paymentOrder.setStatus(PaymentOrderStatus.SUCCESS);
+            paymentRepository.save(paymentOrder);
+            return true;
+        }
+        return false;
     }
-a
+
     @Override
     public PaymentResponse createRazorPayment(UserEntity user, Long amount) {
+      Long  Amount = amount*10;
+      try{
+          RazorpayClient razorpay = new RazorpayClient(apiKey,apiSecretKey);
+          //Create a JSON object with the payment link request parameter
+          JSONObject paymentLinkRequest = new JSONObject();
+          paymentLinkRequest.put("amount", Amount);
+          paymentLinkRequest.put("currency","INR");
+
+          //Create a JSON object with the customer details
+          JSONObject customer = new JSONObject();
+          customer.put("name",user.getUsername());
+          customer.put("email",user.getEmail());
+           paymentLinkRequest.put("customer",customer);
+
+           // Create a JSON Object with the notificetion settings
+          JSONObject notify =   new JSONObject();
+          notify.put("amount",Amount);
+          paymentLinkRequest.put("notify",notify);
+      } catch (RazorpayException e) {
+          throw new RuntimeException(e);
+      }
         return null;
     }
 
