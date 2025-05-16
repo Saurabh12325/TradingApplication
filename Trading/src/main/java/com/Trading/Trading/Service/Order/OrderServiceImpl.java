@@ -32,18 +32,19 @@ public class OrderServiceImpl implements OrderService{
      order.setPrice(BigDecimal.valueOf(price));
      order.setTimestamp(LocalDateTime.now());
      order.setStatus(OrderStatus.PENDING);
-     orderRepository.save(order);
-        return null;
+   return orderRepository.save(order);
+
     }
 
     @Override
     public Order getOrderById(Long orderId) {
-        return null;
+
+        return orderRepository.findById(orderId).orElseThrow(() -> new RuntimeException("Order not found"));
     }
 
     @Override
     public List<Order> getAllOrdersOfUser(Long userId, OrderType orderType, String assetSymbol) {
-        return List.of();
+        return orderRepository.findByUserId(userId);
     }
 
     @Override
