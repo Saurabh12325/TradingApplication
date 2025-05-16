@@ -7,6 +7,7 @@ import com.Trading.Trading.Entity.PaymentOrder;
 import com.Trading.Trading.Entity.UserEntity;
 import com.Trading.Trading.Repository.PaymentRepository;
 import com.razorpay.Payment;
+import com.razorpay.PaymentLink;
 import com.razorpay.RazorpayClient;
 import com.razorpay.RazorpayException;
 import netscape.javascript.JSObject;
@@ -82,10 +83,37 @@ public class PaymentServiceImpl implements PaymentService {
 
            // Create a JSON Object with the notificetion settings
           JSONObject notify =   new JSONObject();
-          notify.put("amount",Amount);
+          notify.put("email",notify);
           paymentLinkRequest.put("notify",notify);
+
+          //set the remainder settings
+          paymentLinkRequest.put("remainder_enable",true);
+          //set the callback URL and method
+          paymentLinkRequest.put("callback_url","http://localhost:5173/wallet");
+          paymentLinkRequest.put("callback_method","get");
+          PaymentLink payment = razorpay.paymentLink.create(paymentLinkRequest);
+          String paymentLinkId = payment.get("id");
+          String paymentLinkUrl = payment.get("short_url");
+          PaymentResponse res = new PaymentResponse();
+          res.setPayment_url(paymentLinkUrl);
+          return res;
       } catch (RazorpayException e) {
-          throw new RuntimeException(e);
+          System.out.println("Error creating payment link :"+ e.getMessage());
+          throw new RazorpayException(e.getMessage()+++++++++++++++++++++++++++++
+
+
+
+
+
+
+
+
+
+
+
+
+
+           );
       }
         return null;
     }
