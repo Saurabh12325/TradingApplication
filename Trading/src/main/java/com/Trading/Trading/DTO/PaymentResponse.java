@@ -1,5 +1,8 @@
 package com.Trading.Trading.DTO;
 
-public class PaymentResponse {
+import lombok.Data;
 
+@Data
+public class PaymentResponse {
+    private String paymentID;
 }
